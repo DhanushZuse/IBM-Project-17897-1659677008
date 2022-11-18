@@ -1,0 +1,177 @@
+<html>
+<style>
+body{
+      background: linear-gradient(45deg, #677be6, transparent);
+   <!--   background-image: url("C:/Users/Hariharan/Downloads/wallpaperflare.com_wallpaper (1).jpg");
+      background-position: center;
+       background-repeat: no-repeat;
+   background-size: cover;-->
+      
+
+}
+   .heading{
+display:flex;
+flex-direction:column;
+align-item:center;
+justify-content:center;
+background:linear-gradient(45deg, #2e45d2, transparent);
+border-radius:20px;
+  }
+  .teamid{
+display:flex;
+align-items:center;
+justify-content:center;
+}
+    .container{
+margin-top:40px;
+height:700px;
+display:flex;
+flex-direction:row;
+gap:50px;
+justify-content:stretch;
+
+}
+
+.uploader{
+background: linear-gradient(45deg,#31a84d63, transparent);
+    padding: 10px;
+    /* margin-top: 30px
+px
+; */
+    margin-right: 160px;
+    margin-left:115px;
+    height: 550;
+    width: 550;
+    border-radius: 50px;
+}
+.image{
+float:left;
+margin-top:30px;
+margin-left:180px;
+border-radius:100px;
+border:1px inset black;
+}
+.displayimg{
+border-radius:100px;
+opacity: 0.5;
+}
+.displayimg:hover{
+opacity:1.0;
+}
+.label{
+   border: #070a07;
+    background: black;
+    color: #e8dcdc;
+    display: inline-block;
+    text-align: center;
+    margin-left: 100px;
+     margin-top:72px;
+    padding: 2px;
+    width: 200px;
+    border-radius: 10px
+}
+.label:hover{
+background: linear-gradient(45deg, #677be6, transparent);
+transition: margin-right 2s;
+}
+.uploadbutton{
+color: #fdeaea;
+background: black;
+border-radius: 10px;
+}
+.uploadbutton:hover{
+  background: linear-gradient(45deg, #677be6, transparent);
+}
+/*.uploadbuttondiv{
+   margin-top:30px;
+   margin-left:60px;
+
+}*/
+.result{
+   background: linear-gradient(45deg,#31a84d63, transparent);
+    border-radius: 40px;
+    height: 570;
+    width: 570;
+    
+}
+.preview{
+margin-left:100px
+}
+.prediction{
+
+margin:20px;
+
+}
+.spanupload{font-size: 20;
+    font-weight: bold;
+}
+.resultimage{
+   display:block;
+   height:300px;
+   width:300px;
+   border:1px solid;
+   margin-top:10px;
+  margin-left:110px;
+}
+</style>
+<script>
+  function showPreview(event){
+  if(event.target.files.length > 0){
+    var src = URL.createObjectURL(event.target.files[0]);
+    var preview = document.getElementById("previewimg");
+    preview.src = src;
+    preview.style.display = "block";
+  }
+}
+
+function validateImage(event){
+   event.preventDefault();
+ const   element = document.querySelector('#getimage');
+if( element.files.length==0){
+alert('Please select an image to upload');
+}
+else{
+const form = document.querySelector('form');
+form.submit();
+}
+}
+
+</script>
+<body >
+<div class='heading'><div style='margin-left: 600px;'><h2 style='color:white;font-family:cursive;font-weight:700;'>DIGITAL NATURALIST</h2></div>
+
+<div class='teamid'><h4 style='color:white;display:inline-block;'>TEAM ID:PNT2022TMID21994</h4></div>
+ </div>
+
+<div class='container'>
+    
+     <div  class='uploader'>
+	<div style='display:flex;justify-content:center;'><span class='spanupload'>UPLOAD:</span>                                        </div>
+        
+
+       <form action="/" method='post' enctype='multipart/form-data'>
+     
+             <label for='getimage'  class='label'>Select an image</label>
+
+            <input type='file' id='getimage' name='image'  style='display:none;color:red;'    onchange='showPreview(event);' > 
+            <input type='submit' value=Upload   class='uploadbutton' onclick='validateImage(event);'>
+
+           <div class='preview'><img id='previewimg' style='display:none;margin-top:30px;width:300;height:300;'/></div>
+
+          
+           </form>
+          </div>
+    <div class='result'>
+            <div class='prediction'>
+               <div style='text-align:center;font-weight:800;'>  PREDICTION:</div>
+                 <br>
+                   {% if img %}
+                   <img src="{{url_for('display_image', filename=img)}}" class='resultimage' >
+                   {% endif %}
+                     <br>
+            <div class='resulttext'> <p style='text-indent:40;word-spacing:5'> {{msg}}</p></div>
+              </div>
+      </div> 
+</div>
+</body>
+</html>
